@@ -113,7 +113,7 @@ class AskFileSave(CommonDialog):
             filepath = None
         return filepath
 
-class ShowInfo(CommonDialog):
+class ShowMessage(CommonDialog):
     def showmessage(self): 
         if self.title: self.win.addstr(0, int(self.x/2-len(self.title)/2), self.title, self.title_attr)
         for (i, msg) in enumerate(self.message.split('\n')): 
@@ -125,7 +125,7 @@ class ShowInfo(CommonDialog):
 
 
 def showmessage(**option): 
-    return ShowInfo(**option).showmessage( )
+    return ShowMessage(**option).showmessage( )
 
 def askfilesave(**option): 
     return AskFileSave(**option).filesave( ) 
