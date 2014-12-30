@@ -146,8 +146,6 @@ class ShowMessage(CommonDialog):
         self.win.addstr(9, int(self.x/2-1), 'Ok',    self.opt_attr  | self.focus_attr)
         if self.win.getch( ) != ord('\n'):  self.showmessage( )
     
-
-
 def showmessage(**option): 
     return ShowMessage(**option).showmessage( )
 
@@ -156,8 +154,6 @@ def askfilesave(**option):
 
 def askyescancel(**option): 
     return AskYesCancel(**option).yescancel( )
-
-
 
 def rectangle(win, begin_y, begin_x, height, width, attr):
     win.vline(begin_y,    begin_x,       curses.ACS_VLINE, height, attr)
