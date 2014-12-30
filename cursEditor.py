@@ -481,10 +481,8 @@ class Editor(object):
             loop = True
         return loop
 
-
 def main(stdscr, **kwargs):
     return Editor(stdscr, **kwargs)()
-
 
 def editor(**kwargs):
     return curses.wrapper(main, **kwargs)
