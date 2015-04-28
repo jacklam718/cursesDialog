@@ -1,7 +1,7 @@
 About
 =====
-This is python curses dialogs library.
-This dialogs library provided the following dialogs
+This is python curses dialog library.
+This dialogs library provided the following dialog
 
 1. askFileSaveDialog
 2. askYesCancelDialog
@@ -27,10 +27,10 @@ This library can only run on Unix like and Linux like OS, in Windows you need to
 
 #Screenshots
 ####Show Message Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/display-message-dialog.png" alt="progressbars">
+<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/display-message-dialog.png" alt="Show Message Dialog">
 
 ####Ask Yes Or Cancel Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-yes-cancel-dialog.png" alt="progressbars">
+<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-yes-cancel-dialog.png" alt="Ask Yes Or Cancel Dialog">
 
 ####Ask Save File Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-save-dialog.png" alt="progressbars">
+<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-save-dialog.png" alt="Ask Save File Dialog">
