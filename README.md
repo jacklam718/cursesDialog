@@ -1,4 +1,5 @@
-cursDialogs
-===========
+About
+=====
+This is python curses dialogs library
 
-curses common dialogs / widgets
+#Usage

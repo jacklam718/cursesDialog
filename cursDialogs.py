@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # --*-- coding: utf-8 --*--
 
-from curses.textpad import rectangle
+# from curses.textpad import rectangle
 import curses
 import cursBaseDialog
 import sys
@@ -9,7 +9,7 @@ import sys
 encoding = sys.getdefaultencoding( )
 
 class AskYesCancelDialog(cursBaseDialog.CursBaseDialog):
-    def yescancel(self):
+    def yesCancel(self):
         if self.title: self.win.addstr(0, int(self.x/2 - len(self.title)/2), self.title, self.title_attr)
         for (i, msg) in enumerate(self.message.split('\n')):
             self.win.addstr(i+1, 2, msg,  self.msg_attr)
@@ -35,7 +35,7 @@ class AskYesCancelDialog(cursBaseDialog.CursBaseDialog):
         return False
 
 class AskFileSaveDialog(cursBaseDialog.CursBaseDialog):
-    def filesave(self):
+    def fileSave(self):
         if self.title: self.win.addstr(0, int(self.x/2-len(self.title)/2), self.title, self.title_attr)
         for (i, msg) in enumerate(self.message.split('\n')):
             self.win.addstr(i+1, 2, msg, self.msg_attr)
@@ -88,13 +88,13 @@ class AskFileSaveDialog(cursBaseDialog.CursBaseDialog):
         return filepath
 
 class ShowMessageDialog(cursBaseDialog.CursBaseDialog):
-    def showmessage(self):
+    def showMessage(self):
         if self.title: self.win.addstr(0, int(self.x/2-len(self.title)/2), self.title, self.title_attr)
         for (i, msg) in enumerate(self.message.split('\n')):
             self.win.addstr(i+1, 2, msg, self.msg_attr)
         rectangle(self.win, 8, int(self.x/2-2), 2, 3, self.opt_attr | self.focus_attr)
         self.win.addstr(9, int(self.x/2-1), 'Ok',    self.opt_attr  | self.focus_attr)
-        if self.win.getch( ) != ord('\n'):  self.showmessage( )
+        if self.win.getch( ) != ord('\n'):  self.showMessage( )
 
 class ProgressBarDialog:
     def __init__(self, finalcount, message="", title=None, clr1=None, clr2=None, y=32, x=80):
@@ -147,14 +147,14 @@ class ProgressBarDialog:
         return
 
 
-def showmessage(**option):
-    return ShowMessageDialog(**option).showmessage( )
+def showMessageDialog(**option):
+    return ShowMessageDialog(**option).showMessage( )
 
-def askfilesave(**option):
-    return AskFileSaveDialog(**option).filesave( )
+def askFileSaveDialog(**option):
+    return AskFileSaveDialog(**option).fileSave( )
 
-def askyescancel(**option):
-    return AskYesCancelDialog(**option).yescancel( )
+def askYesCancelDialog(**option):
+    return AskYesCancelDialog(**option).yesCancel( )
 
 def rectangle(win, begin_y, begin_x, height, width, attr):
     win.vline(begin_y,    begin_x,       curses.ACS_VLINE, height, attr)
@@ -172,9 +172,9 @@ if __name__ == '__main__':
     import traceback
     try:
         stdscr = curses.initscr( )
-        rec = askfilesave(message='Ask file save path\njust for test', title='Ask save file Dialog')
-        rec = askyescancel(message='Ask Yes Cancel \njust for test', title='Ask Yes Cancel Dialog', title_attr=curses.A_STANDOUT|curses.A_BOLD)
-        rec = showmessage(message='Display message for test ', title='Display message ')
+        rec = askFileSaveDialog(message='Ask file save path\njust for test', title='Ask save file Dialog')
+        rec = askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask Yes Cancel Dialog', title_attr=curses.A_STANDOUT|curses.A_BOLD)
+        rec = showMessageDialog(message='Display message for test ', title='Display message ')
         curses.endwin( )
         print(rec)
         input('Press enter exit!')
@@ -183,7 +183,7 @@ if __name__ == '__main__':
         traceback.print_exc()
         input( )
 
-    
+
     # from time import sleep
     # stdscr = curses.initscr( ) ; curses.curs_set(0)
     # y, x   = stdscr.getmaxyx( ); dst = 100
