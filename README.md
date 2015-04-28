@@ -10,8 +10,10 @@ This dialogs library provided the following dialog
 
 > Note the **progressBarDialog** has some bugs, will fix it as soon as possible
 
-#Usage
+#Example
 ```python
+from cursDialog import *
+
 # ask filename/pathname dialog, will return the inputted string
 filepath = askFileSaveDialog(message='Ask file save path\njust for test', title='Ask save file Dialog')
 
