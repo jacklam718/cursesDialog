@@ -29,6 +29,11 @@ showMessageDialog(message='Display message for test ', title='Display message ')
 
 - Python3.x
 
+#Install
+```bash
+python3 setup.py install
+```
+
 #Screenshot
 ####Show Message Dialog
 <img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/display-message-dialog.png" alt="Show Message Dialog">
