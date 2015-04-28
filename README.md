@@ -25,9 +25,11 @@ showMessageDialog(message='Display message for test ', title='Display message ')
 ```
 
 #Platform
-This library can only run on Unix like and Linux like OS, in Windows you need to install a curses alternative patch because the curses library not supported in Windows.
+- This library can only run on Unix like and Linux like OS, in Windows you need to install a curses alternative patch because the curses library not supported in Windows.
 
-#Screenshots
+- Python3.x
+
+#Screenshot
 ####Show Message Dialog
 <img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/display-message-dialog.png" alt="Show Message Dialog">
 
