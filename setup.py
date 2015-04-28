@@ -10,6 +10,5 @@ setup(
     author="Jack Lam",
     author_email="jacklam718@gmail.com",
     url="https://github.com/jacklam718/cursDialog",
-    py_modules=["cursBaseDialog", "cursDialog"],
+    py_modules=["cursDialog"],
 )
-
