@@ -9,7 +9,7 @@ import sys
 encoding = sys.getdefaultencoding( )
 
 class AskYesCancelDialog(cursBaseDialog.CursBaseDialog):
-    def yesCancel(self):
+    def askYesOrCancel(self):
         if self.title: self.win.addstr(0, int(self.x/2 - len(self.title)/2), self.title, self.title_attr)
         for (i, msg) in enumerate(self.message.split('\n')):
             self.win.addstr(i+1, 2, msg,  self.msg_attr)
@@ -154,7 +154,7 @@ def askFileSaveDialog(**option):
     return AskFileSaveDialog(**option).fileSave( )
 
 def askYesCancelDialog(**option):
-    return AskYesCancelDialog(**option).yesCancel( )
+    return AskYesCancelDialog(**option).askYesOrCancel( )
 
 def rectangle(win, begin_y, begin_x, height, width, attr):
     win.vline(begin_y,    begin_x,       curses.ACS_VLINE, height, attr)
