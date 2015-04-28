@@ -9,7 +9,7 @@ setup(
     description="Python curses dialog library",
     author="Jack Lam",
     author_email="jacklam718@gmail.com",
-    url="https://github/jacklam718/cursDialog",
+    url="https://github.com/jacklam718/cursDialog",
     py_modules=["cursBaseDialog", "cursDialog"],
 )
 
