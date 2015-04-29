@@ -39,6 +39,8 @@ result = askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask
 showMessageDialog(message='Display message for test ', title='Display message ')
 ```
 
+> Note: you can directly run the **cursDialog.py** to preview dialog effect
+
 #Platform
 - This library can only run on Unix like and Linux like OS, in Windows you need to install a curses alternative patch because the curses library not supported in Windows.
 
