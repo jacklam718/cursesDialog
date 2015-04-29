@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # --*-- coding: utf-8 --*--
 
-# from curses.textpad import rectangle
 import curses
 import sys
 
@@ -126,65 +125,67 @@ class ShowMessageDialog(CursBaseDialog):
         self.win.addstr(9, int(self.x/2-1), 'Ok',    self.opt_attr  | self.focus_attr)
         if self.win.getch( ) != ord('\n'):  self.showMessage( )
 
-class ProgressBarDialog:
-    def __init__(self, finalcount, message="", title=None, clr1=None, clr2=None, y=32, x=80):
-        self.win = curses.newwin(12, 56, int(y/2)-6, int(x/2)-28)
-        self.win.box( )
-        self.clr1 = clr1 or curses.A_NORMAL
-        self.clr2 = clr2 or curses.A_NORMAL
-        self.y, self.x  = self.win.getmaxyx( )
-        self.finalcount = finalcount
-        self.blockcount = 0
+class ProgressBarDialog(CursBaseDialog):
+    def __init__(self, **options):
+        super(self.__class__, self).__init__(**options)
+        self.clr1 = options.get("clr1", curses.A_NORMAL)
+        self.clr2 = options.get("clr2", curses.A_NORMAL)
+        self.maxValue = options.get("maxValue")
+        self.blockValue = 0
         self.win.addstr(0, 0, ' '*self.x, curses.A_STANDOUT)
-        # Display some message
-        self.message = message
-        self.title   = title
-        self.display_message( )
-        # Draw the interface
-        self.draw_interface ( )
+
+        # Display message
+        self.message = options.get("message", "")
+        self.title   = options.get("title", "")
+        self.displayMessage( )
+
+        # Draw the ProgressBar Box
+        self.drawProgressBarBox ( )
+
         self.win.refresh( )
 
-    def draw_interface(self):
+    def drawProgressBarBox(self):
+        from curses.textpad import rectangle as rect
         self.win.attrset(self.clr1 | curses.A_BOLD)
         hight, width = 2, 50
         y, x = 7, 3
-        rectangle(self.win, y-1, x-1, hight+y, width+x)
+        rect(self.win, y-1, x-1, hight+y, width+x)
 
-    def display_message(self):
+    def displayMessage(self):
         if self.title:
             self.win.addstr(0, int(self.x/2-len(self.title)/2), self.title, curses.A_BOLD | curses.A_STANDOUT)
         for (i, msg) in enumerate(self.message.split('\n')):
             self.win.addstr(i+1, 2, msg, curses.A_BOLD)
 
-    def progress(self, count):
-        percentcomplete = int((100*count/self.finalcount))
-        blockcount      = int(percentcomplete/2)
-        self.count_of_final(count)
-        for i in range(self.blockcount, blockcount):
-            self.win.addstr(7, i+3, '█', self.clr2 | curses.A_BOLD)
-            self.win.addstr(8, i+3, '█', self.clr2 | curses.A_NORMAL)
+    def progress(self, currentValue):
+        percentcomplete = int((100 * currentValue / self.maxValue))
+        blockValue      = int(percentcomplete/2)
+        maxValue     = str(self.maxValue)
+        currentValue = str(currentValue)
+
+        self.win.addstr(9, int(self.x/2-len(maxValue))-2, "%s of %s" % (currentValue, maxValue))
+
+        for i in range(self.blockValue, blockValue):
+            self.win.addstr(7, i+3, '▋', self.clr2 | curses.A_BOLD)
+            self.win.addstr(8, i+3, '▋', self.clr2 | curses.A_NORMAL)
 
         if percentcomplete == 100:
             self.win.addstr(10, int(self.x/2)-3,  'Finish', curses.A_STANDOUT)
             self.win.getch( )
-        self.blockcount = blockcount
+        self.blockValue = blockValue
         self.win.refresh( )
 
-    def count_of_final(self, count):
-        final = str(self.finalcount)
-        count = str(count)
-        self.win.addstr(9, int(self.x/2-len(final))-2, "%s of %s" % (count, final))
-        return
+def showMessageDialog(**options):
+    return ShowMessageDialog(**options).showMessage( )
 
+def askFileSaveDialog(**options):
+    return AskFileSaveDialog(**options).fileSave( )
 
-def showMessageDialog(**option):
-    return ShowMessageDialog(**option).showMessage( )
+def askYesCancelDialog(**options):
+    return AskYesCancelDialog(**options).askYesOrCancel( )
 
-def askFileSaveDialog(**option):
-    return AskFileSaveDialog(**option).fileSave( )
-
-def askYesCancelDialog(**option):
-    return AskYesCancelDialog(**option).askYesOrCancel( )
+def progressBarDialog(**options):
+    return ProgressBarDialog(**options).progress
 
 def rectangle(win, begin_y, begin_x, height, width, attr):
     win.vline(begin_y,    begin_x,       curses.ACS_VLINE, height, attr)
@@ -198,26 +199,38 @@ def rectangle(win, begin_y, begin_x, height, width, attr):
     win.refresh( )
 
 if __name__ == '__main__':
+    from time import sleep
+
     # test
     import traceback
     try:
+        # init curses screen
         stdscr = curses.initscr( )
-        rec = askFileSaveDialog(message='Ask file save path\njust for test', title='Ask save file Dialog')
-        rec = askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask Yes Cancel Dialog', title_attr=curses.A_STANDOUT|curses.A_BOLD)
-        rec = showMessageDialog(message='Display message for test ', title='Display message ')
+
+        curses.start_color()
+        # stdscr.use_default_colors()
+        curses.curs_set(0)
+        curses.use_default_colors()
+        curses.init_pair(1, curses.COLOR_RED, 0)
+        curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_GREEN)
+        curses.init_pair(3, curses.COLOR_BLUE,  0)
+
+        COLOR_RED    = curses.color_pair(1)
+        COLOR_GREEN  = curses.color_pair(2)
+        COLOR_BLUE   = curses.color_pair(3)
+        COLOR_NORMAL = curses.color_pair(4)
+
+        askFileSaveDialog(message='Ask file save path\njust for test', title='Ask save file Dialog')
+        askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask Yes Cancel Dialog', title_attr=curses.A_STANDOUT|curses.A_BOLD)
+        showMessageDialog(message='Display message for test ', title='Display message ')
+
+        maxValue = 100
+        progress = progressBarDialog(maxValue=maxValue, message='Progressbar for test', title='Progress test', clr1=COLOR_RED, clr2=COLOR_GREEN)
+        for i in range(maxValue+1):
+            progress(i)
+            sleep(0.01)
+
         curses.endwin( )
-        print(rec)
-        input('Press enter exit!')
     except:
         curses.endwin( )
         traceback.print_exc()
-        input( )
-
-
-    # from time import sleep
-    # stdscr = curses.initscr( ) ; curses.curs_set(0)
-    # y, x   = stdscr.getmaxyx( ); dst = 100
-    # pb = Progressbar(dst, 'Progressbar for test', 'Progress test', y, x)
-    # for i in range(dst+1):
-    #     pb.progress(i)
-    #     sleep(0.1)
