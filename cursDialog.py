@@ -135,8 +135,6 @@ class ProgressBarDialog(CursBaseDialog):
         self.win.addstr(0, 0, ' '*self.x, curses.A_STANDOUT)
 
         # Display message
-        self.message = options.get("message", "")
-        self.title   = options.get("title", "")
         self.displayMessage( )
 
         # Draw the ProgressBar Box
