@@ -20,7 +20,11 @@ stdscr = curses.initscr( )
 
 # progress bar dialog
 maxValue = 100
-progress = progressBarDialog(maxValue=maxValue, message='Progressbar for test', title='Progress test')
+progress = progressBarDialog(
+  maxValue = maxValue,
+  message = 'Progressbar for test',
+  title = 'Progress test'
+)
 for i in range(maxValue+1):
     progress(i)
 
@@ -30,13 +34,26 @@ curses.init_pair(1, curses.COLOR_RED, 0)
 curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_GREEN)
 COLOR_RED    = curses.color_pair(1)
 COLOR_GREEN  = curses.color_pair(2)
-progress = progressBarDialog(maxValue=maxValue, message='Progressbar for test', title='Progress test', clr1=COLOR_RED, clr2=COLOR_GREEN)
+progress = progressBarDialog(
+  maxValue = maxValue,
+  message = 'Progressbar for test',
+  title = 'Progress test',
+  clr1 = COLOR_RED,
+  clr2 = COLOR_GREEN
+)
 
 # ask filename/pathname dialog, will return the inputted string
-filepath = askFileSaveDialog(message='Ask file save path\njust for test', title='Ask save file Dialog')
+filepath = askFileSaveDialog(
+  message='Ask file save path\njust for test',
+  title='Ask save file Dialog'
+)
 
 # ask yes or cancel dialog, will return boolean
-result = askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask Yes Cancel Dialog', title_attr=curses.A_STANDOUT|curses.A_BOLD)
+result = askYesCancelDialog(
+  message = 'Ask Yes Cancel \njust for test',
+  title = 'Ask Yes Cancel Dialog',
+  title_attr = curses.A_STANDOUT | curses.A_BOLD
+)
 
 # show message dialog, only display message
 showMessageDialog(message='Display message for test ', title='Display message ')
