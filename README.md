@@ -1,14 +1,17 @@
-About
-=====
+## Python Curses Dialog
+
 This is python curses dialog library.
-This dialogs library provided the following dialog
+This library provided the following dialogs
 
 1. progressBarDialog
 2. askFileSaveDialog
 3. askYesCancelDialog
 4. showMessageDialog
 
-#Example
+## Preview
+<img src="https://raw.githubusercontent.com/jacklam718/cursesDialog/master/.github/curses-dialog.gif" width="600">
+
+## Example
 ```python
 from cursDialog import *
 
@@ -39,27 +42,8 @@ result = askYesCancelDialog(message='Ask Yes Cancel \njust for test', title='Ask
 showMessageDialog(message='Display message for test ', title='Display message ')
 ```
 
-> Note: you can directly run the **cursDialog.py** to preview dialog effect
 
-#Platform
+## Platform
 - This library can only run on Unix like and Linux like OS, in Windows you need to install a curses alternative patch because the curses library not supported in Windows.
 
 - Python3.x
-
-#Install
-```bash
-python3 setup.py install
-```
-
-#Screenshot
-####Progress Bar Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/progress-bar-dialog.png" alt="Progress Bar Dialog">
-
-####Show Message Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/display-message-dialog.png" alt="Show Message Dialog">
-
-####Ask Yes Or Cancel Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-yes-cancel-dialog.png" alt="Ask Yes Or Cancel Dialog">
-
-####Ask Save File Dialog
-<img src="https://raw.github.com/jacklam718/cursDialogs/master/screenshots/ask-save-dialog.png" alt="Ask Save File Dialog">
